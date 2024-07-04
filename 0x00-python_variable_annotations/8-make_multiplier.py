@@ -4,26 +4,27 @@
 from typing import Callable
 
 
-def make_multiplier(multiplier: float) -> (float) -> float:
+def create_multiplier(multiplier: float) -> Callable[[float], float]:
     """
-    Takes a float multiplier as argument and returns a function
-    that multiplies a float by multiplier.
+    Creates a function that multiplies a given number by a given multiplier.
 
     Args:
         multiplier (float): The multiplier to apply.
 
     Returns:
-        (float) -> float: A function that multiplies a float by multiplier.
+        Callable[[float], float]: A function that multiplies a
+        number by the multiplier.
     """
-    def multiplier_func(num: float) -> float:
+    def multiply_number(number: float) -> float:
         """
-        Multiplies a float by the multiplier.
+        Multiplies a number by the given multiplier.
 
         Args:
-            num (float): The number to multiply.
+            number (float): The number to multiply.
 
         Returns:
-            float: The result of multiplying num by multiplier.
+            float: The result of multiplying the number by the multiplier.
         """
-        return num * multiplier
-    return multiplier_func
+        return number * multiplier
+
+    return multiply_number
