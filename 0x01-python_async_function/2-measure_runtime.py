@@ -1,26 +1,14 @@
 #!/usr/bin/env python3
+"""Asyncio Tasks"""
 
 import asyncio
 from typing import List
-import time
 
-wait_n = __import__('1-concurrent_coroutines').wait_n
+task_wait_random = __import__('3-tasks').task_wait_random
 
 
-def measure_time(n: int, max_delay: int) -> float:
-    """Measures the average time per coroutine
-    execution for wait_n(n, max_delay).
-
-    Args:
-        n (int): Number of coroutines to run.
-        max_delay (int): Maximum delay for each coroutine.
-
-    Returns:
-        float: Average time per coroutine
-        execution (total_time / n).
-    """
-    start_time = time.time()
-    asyncio.run(wait_n(n, max_delay))
-    end_time = time.time()
-
-    return (end_time - start_time) / n
+async def task_wait_n(n: int, max_delay: int) -> List[float]:
+    """Execuute multiple coroutines"""
+    coroutines = [task_wait_random(max_delay) for _ in range(n)]
+    delays = await asyncio.gather(*coroutines)
+    return sorted(delays)
