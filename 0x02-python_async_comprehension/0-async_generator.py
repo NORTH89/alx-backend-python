@@ -7,6 +7,7 @@ asynchronous generators.
 import asyncio
 import random
 
+
 async def async_generator():
     """
     An asynchronous generator that yields
