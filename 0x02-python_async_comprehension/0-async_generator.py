@@ -6,14 +6,24 @@ asynchronous generators.
 
 import asyncio
 import random
+from typing import Generator
 
-
-async def async_generator():
+async def async_generator() -> Generator[int, None, None]:
     """
-    An asynchronous generator that yields
-    a random integer between 0 and 10
-    after a 1-second delay.
+    Returns an asynchronous generator.
     """
-    for _ in range(10):
+    for _  in range(10):
         await asyncio.sleep(1)
-        yield random.randint(0, 10)
+        yield random.random() * 10
+        
+    
+if __name__ == "__main__":
+    asyncio_generator = __import__('0-async_generator').async_generator
+    
+    async def print_yielded_values():
+        result = []
+        async for i in async_generator():
+            result.append(i)
+        print(result)
+        
+    asyncio.run(print_yielded_values())
